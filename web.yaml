@@ -10,7 +10,8 @@ spec:
     spec:
       containers:
       - name: nginx
-        image: localhost:5000/zeka-frontend:latest
+        image: zeka-frontend:latest
+        imagePullPolicy: IfNotPresent
         ports: [ { containerPort: 80 } ]
 
 ---
@@ -34,7 +35,8 @@ spec:
     spec:
       containers:
       - name: flask
-        image: localhost:5000/zeka-api:latest
+        image: zeka-api:latest
+        imagePullPolicy: IfNotPresent
         ports: [ { containerPort: 5000 } ]
 
 ---
@@ -58,7 +60,8 @@ spec:
     spec:
       containers:
       - name: nginx
-        image: localhost:5000/zeka-proxy:latest
+        image: zeka-proxy:latest
+        imagePullPolicy: IfNotPresent
         ports: [ { containerPort: 80 } ]
 
 ---
