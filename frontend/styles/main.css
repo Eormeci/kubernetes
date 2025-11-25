@@ -1,0 +1,238 @@
+/* === GLOBAL === */
+:root {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background: #050816;
+  color: #e5e7eb;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 24px;
+  gap: 24px;
+}
+
+/* === HEADER === */
+.header {
+  text-align: center;
+  margin-bottom: 16px;
+}
+
+.header-title {
+  font-size: 32px;
+  font-weight: 800;
+  background: linear-gradient(90deg, #38bdf8, #a855f7, #f97316);
+  -webkit-background-clip: text;
+  color: transparent;
+  letter-spacing: 0.04em;
+}
+
+.header-subtitle {
+  margin-top: 8px;
+  font-size: 14px;
+  color: #9ca3af;
+}
+
+.app-container {
+  width: 100%;
+  max-width: 1200px;
+}
+
+/* === GRID LAYOUT === */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 16px;
+  margin-top: 16px;
+}
+
+/* === CARD === */
+.card {
+  background: radial-gradient(circle at top left, #111827 0%, #020617 55%, #000 100%);
+  border-radius: 16px;
+  padding: 16px;
+  border: 1px solid rgba(148, 163, 184, 0.2);
+  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.8);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+}
+
+.card-title {
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.card-tag {
+  font-size: 11px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: rgba(55, 65, 81, 0.8);
+  color: #e5e7eb;
+  white-space: nowrap;
+}
+
+.card-desc {
+  font-size: 12px;
+  color: #9ca3af;
+}
+
+/* === INPUTS & LABELS === */
+label {
+  font-size: 11px;
+  color: #9ca3af;
+  display: block;
+  margin-bottom: 4px;
+}
+
+.endpoint-row {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
+.endpoint-row input[type="text"],
+.endpoint-row select,
+textarea {
+  flex: 1;
+  padding: 6px 8px;
+  border-radius: 10px;
+  border: 1px solid #374151;
+  background: #020617;
+  color: #e5e7eb;
+  font-size: 12px;
+  outline: none;
+}
+
+.endpoint-row input:focus,
+.endpoint-row select:focus,
+textarea:focus {
+  border-color: #38bdf8;
+}
+
+textarea {
+  width: 100%;
+  min-height: 60px;
+  resize: vertical;
+}
+
+/* === BUTTONS === */
+button {
+  border: none;
+  border-radius: 999px;
+  padding: 6px 12px;
+  font-size: 12px;
+  cursor: pointer;
+  background: linear-gradient(135deg, #0ea5e9, #6366f1);
+  color: white;
+  font-weight: 600;
+  white-space: nowrap;
+  transition: transform 0.08s ease, box-shadow 0.08s ease, opacity 0.08s ease;
+}
+
+button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 20px rgba(37, 99, 235, 0.35);
+  opacity: 0.95;
+}
+
+button:active {
+  transform: translateY(1px) scale(0.98);
+  box-shadow: none;
+  opacity: 0.9;
+}
+
+/* METHOD BADGE */
+.method-badge {
+  font-size: 10px;
+  padding: 2px 6px;
+  border-radius: 999px;
+  border: 1px solid #4b5563;
+  color: #e5e7eb;
+}
+
+/* === OUTPUT BOX === */
+.output {
+  margin-top: 6px;
+  padding: 8px;
+  border-radius: 10px;
+  background: #020617;
+  border: 1px dashed #374151;
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 11px;
+  color: #e5e7eb;
+  max-height: 180px;
+  overflow: auto;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.output.placeholder {
+  color: #6b7280;
+  font-style: italic;
+}
+
+/* === STATUS === */
+.small-note {
+  font-size: 11px;
+  color: #6b7280;
+}
+
+.status-pill {
+  font-size: 11px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: #022c22;
+  color: #6ee7b7;
+  border: 1px solid #065f46;
+}
+
+.status-pill.error {
+  background: #450a0a;
+  color: #fecaca;
+  border-color: #b91c1c;
+}
+
+.row {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.row > * {
+  margin-top: 4px;
+}
+
+/* === FOOTER === */
+.footer {
+  margin-top: 12px;
+  font-size: 11px;
+  color: #6b7280;
+  text-align: center;
+}
+
+/* === MOBILE === */
+@media (max-width: 600px) {
+  body {
+    padding: 12px;
+  }
+
+  .header-title {
+    font-size: 24px;
+  }
+}

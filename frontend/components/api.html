@@ -1,0 +1,25 @@
+<section class="card">
+  <div class="card-header">
+    <div>
+      <div class="card-title">Ana API Servisi</div>
+      <div class="small-note">Flask backend - GPU / RAM testleri</div>
+    </div>
+    <span class="card-tag">/api</span>
+  </div>
+
+  <div>
+    <label>Endpoint:</label>
+    <div class="endpoint-row">
+      <select id="api-endpoint-select">
+        <option value="/api">GET /api (Temel test)</option>
+        <option value="/api/gpu">GET /api/gpu (GPU bilgisi)</option>
+        <option value="/api/ram">GET /api/ram (RAM bilgisi)</option>
+      </select>
+      <button onclick="runPreset('api-endpoint-select','api-output')">Gönder</button>
+    </div>
+  </div>
+
+  <div id="api-output" class="output placeholder">
+    Bu panelden API, GPU ve RAM bilgisi sorgulayabilirsin.
+  </div>
+</section>

@@ -1,0 +1,27 @@
+<section class="card">
+  <div class="card-header">
+    <div>
+      <div class="card-title">Custom Test Paneli</div>
+      <div class="small-note">Her servise istek at</div>
+    </div>
+    <span class="card-tag">universal</span>
+  </div>
+
+  <div class="row">
+    <select id="custom-method">
+      <option>GET</option>
+      <option>POST</option>
+      <option>PUT</option>
+      <option>DELETE</option>
+    </select>
+    <input id="custom-path" type="text" placeholder="/api/test">
+  </div>
+
+  <textarea id="custom-body"></textarea>
+
+  <button onclick="runCustom()">İstek At</button>
+
+  <div id="custom-output" class="output placeholder">
+    Universal panel çıktısı.
+  </div>
+</section>

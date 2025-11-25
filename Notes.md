@@ -1,6 +1,11 @@
-docker build -t zeka-api:latest .
-docker build -t zeka-proxy:latest .
-docker build -t zeka-frontend:latest .
+kind create cluster
+
+kubectl delete deployment --all
+kubectl delete pods --all
+
+docker build -t zeka-api:latest ./api
+docker build -t zeka-proxy:latest ./nginx-proxy
+docker build -t zeka-frontend:latest ./frontend
 
 kind load docker-image zeka-api:latest
 kind load docker-image zeka-frontend:latest
@@ -12,7 +17,9 @@ kubectl apply -f web.yaml
 
 kubectl get pods -w
 
+# Şu komutsuz çalışmıyor.
+kubectl port-forward svc/proxy 30000:80
 
-==
-kubectl delete pods --all
-kubectl delete deployment --all
+================================================================================
+
+kubectl rollout restart deployment proxy

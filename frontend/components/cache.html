@@ -1,0 +1,24 @@
+<section class="card">
+  <div class="card-header">
+    <div>
+      <div class="card-title">Cache Servisi</div>
+      <div class="small-note">Redis / in-memory KV API</div>
+    </div>
+    <span class="card-tag">/cache</span>
+  </div>
+
+  <div class="row">
+    <input id="cache-key" type="text" placeholder="key" />
+    <input id="cache-value" type="text" placeholder="value" />
+    <button onclick="setCache()">SET</button>
+  </div>
+
+  <div class="endpoint-row">
+    <input id="cache-key-get" type="text" placeholder="key" />
+    <button onclick="getCache()">GET</button>
+  </div>
+
+  <div id="cache-output" class="output placeholder">
+    Cache sonuçları burada.
+  </div>
+</section>

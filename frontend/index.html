@@ -1,20 +1,25 @@
 <!DOCTYPE html>
-<html>
+<html lang="tr">
 <head>
-  <title>Test</title>
-  <style>
-    body { font-family: Comic Sans MS, cursive; background: linear-gradient(45deg, #ff9a9e, #fad0c4); text-align: center; margin-top: 100px; }
-    h1 { color: #6a11cb; }
-    .cat { width: 300px; border-radius: 50%; margin: 20px; border: 10px solid #fff; }
-    button { padding: 15px 30px; font-size: 20px; background: #6a11cb; color: white; border: none; border-radius: 50px; cursor: pointer; }
-  </style>
+  <meta charset="UTF-8">
+  <title>Kubernetes Playground</title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="styles/main.css">
 </head>
+
 <body>
-  <h1>Hoş geldin Enhar!</h1>
-  <img class="cat" src="https://upload.wikimedia.org/wikipedia/commons/b/bd/Test.svg" alt="Rastgele kedi">
-  <br><br>
-  <button onclick="fetch('/api').then(r=>r.json()).then(d=>alert(d.message))">
-    API'den mesaj al
-  </button>
+  <div class="app-container">
+    <header class="header">
+      <h1 class="header-title">Kubernetes Service Playground</h1>
+      <p class="header-subtitle">Servisleri ayrı modüllerden yükleyen versiyon</p>
+    </header>
+
+    <!-- Paneller buraya AJAX ile yüklenecek -->
+    <div id="panels" class="grid"></div>
+  </div>
+
+  <!-- JS -->
+  <script src="scripts/app.js"></script>
 </body>
 </html>

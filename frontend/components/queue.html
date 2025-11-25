@@ -1,0 +1,19 @@
+<section class="card">
+  <div class="card-header">
+    <div>
+      <div class="card-title">Queue Servisi</div>
+      <div class="small-note">Kafka / RabbitMQ API</small>
+    </div>
+    <span class="card-tag">/queue</span>
+  </div>
+
+  <textarea id="queue-body">{ "event": "test" }</textarea>
+
+  <button onclick="callService('POST','/queue/publish',document.getElementById('queue-body').value,'queue-output')">
+    Publish Et
+  </button>
+
+  <div id="queue-output" class="output placeholder">
+    Queue API sonucu burada.
+  </div>
+</section>

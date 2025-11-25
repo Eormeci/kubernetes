@@ -1,0 +1,27 @@
+<section class="card">
+  <div class="card-header">
+    <div>
+      <div class="card-title">DB Servisi</div>
+      <div class="small-note">db-gateway test alanı</div>
+    </div>
+    <span class="card-tag">/db</span>
+  </div>
+
+  <div>
+    <label>DB Endpoint:</label>
+    <div class="endpoint-row">
+      <select id="db-endpoint-select">
+        <option value="/db/ping">GET /db/ping</option>
+        <option value="/db/users">GET /db/users</option>
+        <option value="/db/migrate">POST /db/migrate</option>
+      </select>
+      <button onclick="runDbPreset()">Çalıştır</button>
+    </div>
+  </div>
+
+  <textarea id="db-body">{ "example": "data" }</textarea>
+
+  <div id="db-output" class="output placeholder">
+    DB servisi uyumlu çıktı burada.
+  </div>
+</section>
