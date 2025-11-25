@@ -11,3 +11,8 @@ docker exec -it kind-control-plane crictl images | grep zeka
 kubectl apply -f web.yaml
 
 kubectl get pods -w
+
+
+==
+kubectl delete pods --all
+kubectl delete deployment --all
