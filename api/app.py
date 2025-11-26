@@ -13,39 +13,33 @@ def hello():
     })
 
 # ============================================================
-# 1) GPU BİLGİSİ (Sadece Linux, OS check YOK)
+# CPU BİLGİSİ
 # ============================================================
-@app.route('/api/gpu')
-def gpu_info():
+@app.route('/api/cpu')
+def cpu_info():
     try:
-        # Sadece Linux'ta çalışacak, direkt nvidia-smi çağırıyoruz.
-        result = subprocess.check_output(
-            ["nvidia-smi", "--query-gpu=name,driver_version,memory.total", "--format=csv,noheader"],
-            stderr=subprocess.STDOUT,
-            text=True
-        )
+        cpu_percent = psutil.cpu_percent(interval=1)
+        cpu_freq = psutil.cpu_freq()
+        cpu_cores = psutil.cpu_count(logical=False)
+        cpu_threads = psutil.cpu_count(logical=True)
 
-        gpu_list = []
-        for line in result.strip().splitlines():
-            name, driver, mem = [x.strip() for x in line.split(",")]
-            gpu_list.append({
-                "name": name,
-                "driver": driver,
-                "total_memory": mem
-            })
-
-        return jsonify({"gpu_available": True, "gpus": gpu_list})
+        return jsonify({
+            "cpu_available": True,
+            "usage_percent": cpu_percent,
+            "physical_cores": cpu_cores,
+            "threads": cpu_threads,
+            "frequency_mhz": cpu_freq.current if cpu_freq else None
+        })
 
     except Exception as e:
         return jsonify({
-            "gpu_available": False,
-            "error": "NVIDIA GPU bulunamadı veya nvidia-smi mevcut değil.",
+            "cpu_available": False,
+            "error": "CPU bilgisi alınamadı.",
             "details": str(e)
         })
 
-
 # ============================================================
-# 2) RAM BİLGİSİ (Linux için ideal)
+# RAM BİLGİSİ
 # ============================================================
 @app.route('/api/ram')
 def ram_info():
