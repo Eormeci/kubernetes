@@ -10,7 +10,7 @@ spec:
     spec:
       containers:
       - name: nginx
-        image: zeka-frontend:latest
+        image: kubernetes-frontend:latest
         imagePullPolicy: IfNotPresent
         ports: [ { containerPort: 80 } ]
 
@@ -35,7 +35,7 @@ spec:
     spec:
       containers:
       - name: flask
-        image: zeka-api:latest
+        image: kubernetes-api:latest
         imagePullPolicy: IfNotPresent
         ports: [ { containerPort: 5000 } ]
 
@@ -60,7 +60,7 @@ spec:
     spec:
       containers:
       - name: nginx
-        image: zeka-proxy:latest
+        image: kubernetes-proxy:latest
         imagePullPolicy: IfNotPresent
         ports: [ { containerPort: 80 } ]
 
@@ -72,3 +72,38 @@ spec:
   type: NodePort
   selector: { app: proxy }
   ports: [ { port: 80, targetPort: 80, nodePort: 30000 } ]   # sabit 30000 yaptık
+
+# 4. DB SERVICE
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata: { name: db-service }
+spec:
+  replicas: 1
+  selector: { matchLabels: { app: db-service } }
+  template:
+    metadata: { labels: { app: db-service } }
+    spec:
+      containers:
+      - name: db
+        image: kubernetes-db-service:latest
+        imagePullPolicy: IfNotPresent
+        ports: 
+          - containerPort: 6000
+        volumeMounts:
+          - name: db-storage
+            mountPath: /data   # database.db burada
+
+      volumes:
+        - name: db-storage
+          emptyDir: {}   # İstersen PVC'ye çeviririz
+
+---
+apiVersion: v1
+kind: Service
+metadata: { name: db-service }
+spec:
+  selector: { app: db-service }
+  ports:
+    - port: 6000
+      targetPort: 6000
