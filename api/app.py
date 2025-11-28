@@ -4,7 +4,7 @@ import psutil
 
 app = Flask(__name__)
 
-@app.route('/api')
+@app.route('/api/test')
 def hello():
     return jsonify({
         "message": "/api çalışıyor! 🎉",
