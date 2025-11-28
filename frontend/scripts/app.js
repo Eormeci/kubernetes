@@ -1,3 +1,5 @@
+let dbReady = false;
+
 const components = [
   "api",
   "db",
@@ -5,6 +7,8 @@ const components = [
   "queue",
   "custom"
 ];
+
+loadComponents();
 
 async function loadComponents() {
   const container = document.getElementById("panels");
@@ -17,11 +21,54 @@ async function loadComponents() {
   }
 }
 
-// Component loader
-loadComponents();
+// --- DB placeholder güncelleme --- //
+document.addEventListener("change", (e) => {
+  if (e.target.id !== "db-endpoint-select") return;
+
+  const textarea = document.getElementById("db-body");
+  const value = e.target.value;
+
+  let example = `{ "example": "data" }`;
+
+  switch (value) {
+    case "/db/ping":
+      example = "// ping body almaz";
+      break;
+
+    case "GET:/db/users":
+      example = "// GET /db/users body almaz";
+      break;
+
+    case "POST:/db/users":
+      example = JSON.stringify({
+        name: "Ahmet",
+        email: "ahmet@example.com"
+      }, null, 2);
+      break;
+
+    case "PUT:/db/users":
+      example = JSON.stringify({
+        id: 1,
+        name: "Yeni İsim",
+        email: "yeni@example.com"
+      }, null, 2);
+      break;
+
+    case "DELETE:/db/users":
+      example = JSON.stringify({
+        id: 1
+      }, null, 2);
+      break;
+
+    case "POST:/db/migrate":
+      example = "// migrate body almaz";
+      break;
+  }
+
+  textarea.value = example;
+});
 
 
-// Aşağıda önceki fonksiyonlar
 async function callService(method, path, body, outputId) {
   const out = document.getElementById(outputId);
   out.classList.remove("placeholder");
@@ -49,15 +96,79 @@ function runPreset(selId, outId) {
   callService("GET", value, null, outId);
 }
 
-function runDbPreset() {
-  const sel = document.getElementById("db-endpoint-select");
-  const value = sel.value;
-  const body = document.getElementById("db-body").value;
+document.addEventListener("DOMContentLoaded", () => {
+    // DB paneli yüklendiğinde yalnız migrate aktif kalsın
+    lockDbActions(true);
+});
 
-  if (value === "/db/migrate")
-    callService("POST", value, body, "db-output");
-  else
-    callService("GET", value, null, "db-output");
+function lockDbActions(lock) {
+    const select = document.getElementById("db-endpoint-select");
+
+    for (let option of select.options) {
+        if (!option.value.includes("migrate")) {
+            option.disabled = lock;
+        }
+    }
+
+    // UI efekti - tasarıma dokunmadan sadece blur
+    select.style.filter = lock ? "blur(2px)" : "none";
+}
+
+async function runDbPreset() {
+    const raw = document.getElementById('db-endpoint-select').value;
+    const bodyText = document.getElementById('db-body').value;
+    const output = document.getElementById('db-output');
+
+    output.classList.remove('placeholder');
+    output.textContent = 'Gönderiliyor...';
+
+    // --- endpoint + method ayırma ---
+    let method = "GET";
+    let endpoint = raw;
+
+    if (raw.includes(":")) {
+        const [m, url] = raw.split(":");
+        method = m.trim();
+        endpoint = url.trim();
+    }
+
+    let options = { method, headers: {} };
+
+    if (method !== "GET") {
+        options.headers["Content-Type"] = "application/json";
+
+        if (bodyText.trim()) {
+            try {
+                options.body = JSON.stringify(JSON.parse(bodyText));
+            } catch (err) {
+                output.textContent = "JSON hatası: " + err.message;
+                return;
+            }
+        }
+    }
+
+    try {
+        const res = await fetch(endpoint, options);
+        const ok = res.ok;
+
+        let data;
+        try {
+            data = await res.json();
+        } catch {
+            data = await res.text();
+        }
+
+        output.textContent = JSON.stringify(data, null, 2);
+
+        // migrate başarılıysa diğer endpointler açılsın
+        if (endpoint === "/db/migrate" && ok) {
+            dbReady = true;
+            lockDbActions(false);
+        }
+
+    } catch (err) {
+        output.textContent = "Fetch Hatası: " + err.message;
+    }
 }
 
 function setCache() {

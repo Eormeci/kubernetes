@@ -12,8 +12,11 @@
     <div class="endpoint-row">
       <select id="db-endpoint-select">
         <option value="/db/ping">GET /db/ping</option>
-        <option value="/db/users">GET /db/users</option>
-        <option value="/db/migrate">POST /db/migrate</option>
+        <option value="GET:/db/users">GET /db/users (Listele)</option>
+        <option value="POST:/db/users">POST /db/users (Ekle)</option>
+        <option value="PUT:/db/users">PUT /db/users (Güncelle)</option>
+        <option value="DELETE:/db/users">DELETE /db/users (Sil)</option>
+        <option value="POST:/db/migrate">POST /db/migrate</option>
       </select>
       <button onclick="runDbPreset()">Çalıştır</button>
     </div>
