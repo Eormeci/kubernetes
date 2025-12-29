@@ -24,4 +24,4 @@ kubectl port-forward svc/proxy 30000:80
 
 ================================================================================
 
-kubectl rollout restart deployment proxy
+kubectl rollout restart deployment 

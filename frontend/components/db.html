@@ -1,30 +1,33 @@
 <section class="card">
   <div class="card-header">
     <div>
-      <div class="card-title">DB Servisi</div>
-      <div class="small-note">db-gateway test alanı</div>
+      <div class="card-title">SQLite Veritabanı İşlemleri</div>
+      <div class="small-note">CRUD işlemleri için test alanı</div>
     </div>
-    <span class="card-tag">/db</span>
+    <span class="card-tag">/api/items</span>
   </div>
 
   <div>
-    <label>DB Endpoint:</label>
-    <div class="endpoint-row">
-      <select id="db-endpoint-select">
-        <option value="/db/ping">GET /db/ping</option>
-        <option value="GET:/db/users">GET /db/users (Listele)</option>
-        <option value="POST:/db/users">POST /db/users (Ekle)</option>
-        <option value="PUT:/db/users">PUT /db/users (Güncelle)</option>
-        <option value="DELETE:/db/users">DELETE /db/users (Sil)</option>
-        <option value="POST:/db/migrate">POST /db/migrate</option>
-      </select>
-      <button onclick="runDbPreset()">Çalıştır</button>
-    </div>
+    <label for="item-id">ID:</label>
+    <input type="text" id="item-id" placeholder="Öğe ID">
   </div>
 
-  <textarea id="db-body">{ "example": "data" }</textarea>
-
-  <div id="db-output" class="output placeholder">
-    DB servisi uyumlu çıktı burada.
+  <div>
+    <label for="item-name">Ad:</label>
+    <input type="text" id="item-name" placeholder="Öğe Adı">
   </div>
+
+  <div>
+    <label for="item-description">Açıklama:</label>
+    <input type="text" id="item-description" placeholder="Öğe Açıklaması">
+  </div>
+
+  <div>
+    <button onclick="fetchItems()">Tüm Öğeleri Getir</button>
+    <button onclick="addItem()">Öğe Ekle</button>
+    <button onclick="updateItem()">Öğeyi Güncelle</button>
+    <button onclick="deleteItem()">Öğeyi Sil</button>
+  </div>
+
+  <pre id="db-output" class="output placeholder">Sonuçlar burada görünecek...</pre>
 </section>

@@ -188,3 +188,69 @@ function runCustom() {
   const body = document.getElementById("custom-body").value;
   callService(method, path, body, "custom-output");
 }
+
+// --- SQLite API CRUD işlemleri ---
+async function fetchItems() {
+    const output = document.getElementById("db-output");
+    output.textContent = "Fetching items...";
+
+    try {
+        const response = await fetch("/api/items");
+        const items = await response.json();
+        output.textContent = JSON.stringify(items, null, 2);
+    } catch (error) {
+        output.textContent = "Error: " + error.message;
+    }
+}
+
+async function addItem() {
+    const name = document.getElementById("item-name").value;
+    const description = document.getElementById("item-description").value;
+    const output = document.getElementById("db-output");
+
+    try {
+        const response = await fetch("/api/items", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ name, description })
+        });
+        const result = await response.json();
+        output.textContent = JSON.stringify(result, null, 2);
+    } catch (error) {
+        output.textContent = "Error: " + error.message;
+    }
+}
+
+async function updateItem() {
+    const id = document.getElementById("item-id").value;
+    const name = document.getElementById("item-name").value;
+    const description = document.getElementById("item-description").value;
+    const output = document.getElementById("db-output");
+
+    try {
+        const response = await fetch(`/api/items/${id}`, {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ name, description })
+        });
+        const result = await response.json();
+        output.textContent = JSON.stringify(result, null, 2);
+    } catch (error) {
+        output.textContent = "Error: " + error.message;
+    }
+}
+
+async function deleteItem() {
+    const id = document.getElementById("item-id").value;
+    const output = document.getElementById("db-output");
+
+    try {
+        const response = await fetch(`/api/items/${id}`, {
+            method: "DELETE"
+        });
+        const result = await response.json();
+        output.textContent = JSON.stringify(result, null, 2);
+    } catch (error) {
+        output.textContent = "Error: " + error.message;
+    }
+}
